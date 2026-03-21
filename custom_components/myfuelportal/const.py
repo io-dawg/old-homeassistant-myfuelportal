@@ -14,7 +14,7 @@ CONF_FUEL_VENDOR = "fuel_vendor"
 DEFAULT_NAME = "MyFuelPortal"
 
 #DEFAULT_UPDATE_INTERVAL = 300  # seconds (5 minutes)
-DEFAULT_UPDATE_INTERVAL = 7200  # seconds (2 hours)
+DEFAULT_UPDATE_INTERVAL = 28800  # seconds (8 hours)
 
 # Validation patterns
 FUEL_VENDOR_PATTERN = r'^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?$'
