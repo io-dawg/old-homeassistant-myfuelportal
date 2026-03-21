@@ -18,23 +18,14 @@ from .const import CONF_EMAIL, CONF_PASSWORD, CONF_FUEL_VENDOR, DOMAIN, FUEL_VEN
 
 _LOGGER = logging.getLogger(__name__)
 
-
-def validate_fuel_vendor(value: str) -> str:
-    """Validate fuel vendor subdomain format."""
-    if not re.match(FUEL_VENDOR_PATTERN, value):
-        raise vol.Invalid(
-            "Fuel vendor must start and end with alphanumeric characters, "
-            "and may contain hyphens between them"
-        )
-    return value
-
-
 # Data schema for the user configuration step
+# Note: fuel_vendor validation is done in async_step_user because
+# voluptuous_serialize cannot convert custom validators for the HA UI.
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_EMAIL): str,
         vol.Required(CONF_PASSWORD): str,
-        vol.Required(CONF_FUEL_VENDOR): vol.All(str, validate_fuel_vendor),
+        vol.Required(CONF_FUEL_VENDOR): str,
     }
 )
 
@@ -74,16 +65,22 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         errors: dict[str, str] = {}
 
         if user_input is not None:
-            try:
-                info = await validate_input(self.hass, user_input)
-            except CannotConnect:
-                errors["base"] = "cannot_connect"
-            except InvalidAuth:
-                errors["base"] = "invalid_auth"
-            except Exception:  # pylint: disable=broad-except
-                _LOGGER.exception("Unexpected exception")
-                errors["base"] = "unknown"
+            # Validate fuel vendor format before attempting connection
+            fuel_vendor = user_input.get(CONF_FUEL_VENDOR, "")
+            if not re.match(FUEL_VENDOR_PATTERN, fuel_vendor):
+                errors[CONF_FUEL_VENDOR] = "invalid_vendor"
             else:
+                try:
+                    info = await validate_input(self.hass, user_input)
+                except CannotConnect:
+                    errors["base"] = "cannot_connect"
+                except InvalidAuth:
+                    errors["base"] = "invalid_auth"
+                except Exception:  # pylint: disable=broad-except
+                    _LOGGER.exception("Unexpected exception")
+                    errors["base"] = "unknown"
+
+            if not errors:
                 # Create the config entry with a unique ID based on email
                 await self.async_set_unique_id(user_input[CONF_EMAIL])
                 self._abort_if_unique_id_configured()

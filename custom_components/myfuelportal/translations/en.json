@@ -19,6 +19,7 @@
     "error": {
       "cannot_connect": "Failed to connect to MyFuelPortal. Please check your internet connection and try again.",
       "invalid_auth": "Invalid email or password. Please check your credentials.",
+      "invalid_vendor": "Invalid fuel vendor. Must contain only letters, numbers, and hyphens (e.g., 'kbjohnson').",
       "unknown": "An unexpected error occurred. Please check the logs for more details."
     },
     "abort": {
