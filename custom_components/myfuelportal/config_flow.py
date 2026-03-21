@@ -66,8 +66,9 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         if user_input is not None:
             # Validate fuel vendor format before attempting connection
-            fuel_vendor = user_input.get(CONF_FUEL_VENDOR, "")
-            if not re.match(FUEL_VENDOR_PATTERN, fuel_vendor):
+            fuel_vendor = user_input.get(CONF_FUEL_VENDOR, "").strip()
+            user_input[CONF_FUEL_VENDOR] = fuel_vendor
+            if not re.fullmatch(FUEL_VENDOR_PATTERN, fuel_vendor):
                 errors[CONF_FUEL_VENDOR] = "invalid_vendor"
             else:
                 try:

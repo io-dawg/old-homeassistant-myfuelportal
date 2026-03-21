@@ -40,7 +40,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     api = MyFuelPortalAPI(
         entry.data[CONF_EMAIL],
         entry.data[CONF_PASSWORD],
-        entry.data[CONF_FUEL_VENDOR],
+        entry.data.get(CONF_FUEL_VENDOR),
     )
 
     # Authenticate with the API
