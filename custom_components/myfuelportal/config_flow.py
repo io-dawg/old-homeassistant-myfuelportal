@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from typing import Any
 
 import voluptuous as vol
@@ -17,18 +18,23 @@ from .const import CONF_EMAIL, CONF_PASSWORD, CONF_FUEL_VENDOR, DOMAIN, FUEL_VEN
 
 _LOGGER = logging.getLogger(__name__)
 
+
+def validate_fuel_vendor(value: str) -> str:
+    """Validate fuel vendor subdomain format."""
+    if not re.match(FUEL_VENDOR_PATTERN, value):
+        raise vol.Invalid(
+            "Fuel vendor must start and end with alphanumeric characters, "
+            "and may contain hyphens between them"
+        )
+    return value
+
+
 # Data schema for the user configuration step
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_EMAIL): str,
         vol.Required(CONF_PASSWORD): str,
-        vol.Required(CONF_FUEL_VENDOR): vol.All(
-            str,
-            vol.Match(
-                FUEL_VENDOR_PATTERN,
-                msg="Fuel vendor must start and end with alphanumeric characters, and may contain hyphens between them"
-            )
-        ),
+        vol.Required(CONF_FUEL_VENDOR): vol.All(str, validate_fuel_vendor),
     }
 )
 
