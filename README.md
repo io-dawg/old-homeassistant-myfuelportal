@@ -1,9 +1,6 @@
 # MyFuelPortal Home Assistant Integration
-<img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/931c7f10-3232-41fe-abeb-cf699e75583f" />
-
-
 A Home Assistant custom integration for monitoring propane/fuel tank levels from MyFuelPortal customer portal.
-
+<img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/931c7f10-3232-41fe-abeb-cf699e75583f" />
 ## Features
 
 - 🔐 **Secure Authentication**: Form-based login with CSRF token handling
