@@ -56,7 +56,7 @@ class TankLevelSensor(CoordinatorEntity[MyCoordinator], SensorEntity):
         self._attr_unique_id = f"{entry.entry_id}_tank_level"
         
         # Set the entity name
-        self._attr_name = "Tank Level"
+        self._attr_name = "Fuel Tank Level"
         
         # Set sensor properties
         self._attr_state_class = SensorStateClass.MEASUREMENT
@@ -93,7 +93,7 @@ class GallonsRemainingSensor(CoordinatorEntity[MyCoordinator], SensorEntity):
         self._attr_unique_id = f"{entry.entry_id}_gallons_remaining"
         
         # Set the entity name
-        self._attr_name = "Gallons Remaining"
+        self._attr_name = "Fuel Gallons Remaining"
         
         # Set sensor properties
         self._attr_state_class = SensorStateClass.MEASUREMENT
@@ -130,7 +130,7 @@ class TankCapacitySensor(CoordinatorEntity[MyCoordinator], SensorEntity):
         self._attr_unique_id = f"{entry.entry_id}_tank_capacity"
         
         # Set the entity name
-        self._attr_name = "Tank Capacity"
+        self._attr_name = "Fuel Tank Capacity"
         
         # Set sensor properties (no state class as tank capacity is static)
         self._attr_native_unit_of_measurement = UnitOfVolume.GALLONS
@@ -201,7 +201,7 @@ class LastDeliveryDateSensor(CoordinatorEntity[MyCoordinator], SensorEntity):
         self._attr_unique_id = f"{entry.entry_id}_last_delivery_date"
 
         # Set the entity name
-        self._attr_name = "Last Delivery Date"
+        self._attr_name = "Fuel Last Delivery Date"
 
         # Set sensor properties (no state class or unit for date strings)
         self._attr_icon = "mdi:calendar-clock"
@@ -236,7 +236,7 @@ class ReadingDateSensor(CoordinatorEntity[MyCoordinator], SensorEntity):
         self._attr_unique_id = f"{entry.entry_id}_reading_date"
 
         # Set the entity name
-        self._attr_name = "Reading Date"
+        self._attr_name = "Fuel Reading Date"
 
         # Set sensor properties (no state class or unit for date strings)
         self._attr_icon = "mdi:calendar-check"
@@ -271,7 +271,7 @@ class CurrentPriceSensor(CoordinatorEntity[MyCoordinator], SensorEntity):
         self._attr_unique_id = f"{entry.entry_id}_current_price"
 
         # Set the entity name
-        self._attr_name = "Current Price"
+        self._attr_name = "Fuel Current Price"
 
         # Set sensor properties
         self._attr_state_class = SensorStateClass.MEASUREMENT
